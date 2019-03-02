@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Pizza">
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>IK安裝及使用 - Pizza's</title>
+        <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../../css/highlight.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="../../..">Pizza's</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Computer Science <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+  <li class="dropdown-submenu">
+    <a href="#">SQL</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../02_CS/02-1_SQL/MySQL安裝/">MySQL安裝</a>
+</li>
+    </ul>
+  </li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Docker</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../02_CS/02-2_Docker/docker環境建置及使用/">Docker建置</a>
+</li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">ELK <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Article</a>
+    <ul class="dropdown-menu">
+            
+<li class="active">
+    <a href="./">IK安裝及使用</a>
+</li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Python <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Pandas</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../04_Python/04-1_pandas/pandas入門/">Pandas入門(1)</a>
+</li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li >
+                        <a rel="next" href="../../../02_CS/02-2_Docker/docker環境建置及使用/">
+                            <i class="fa fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../../../04_Python/04-1_pandas/pandas入門/">
+                            Next <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#ik">安裝IK斷詞器</a></li>
+            <li><a href="#_1">(一) 安裝</a></li>
+            <li><a href="#2-plugin-descriptorproperties">2. 修改plugin-descriptor.properties</a></li>
+            <li><a href="#3-es">3. 重啟ES</a></li>
+            <li><a href="#ik_1">(二) IK測試</a></li>
+            <li><a href="#3">3. 辭典在線上</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="ik">安裝IK斷詞器</h1>
+<h2 id="_1">(一) 安裝</h2>
+<h3 id="1-zip">1. 下載zip</h3>
+<ul>
+<li>https://github.com/medcl/elasticsearch-analysis-ik/releases</li>
+<li>先在/usr/share/elasticsearch/plugins下建ik目錄</li>
+</ul>
+<pre><code>[root@centoselk6 ELK]# unzip elasticsearch-analysis-ik-6.6.0.zip -d /usr/share/elasticsearch/plugins/ik
+Archive:  elasticsearch-analysis-ik-6.6.0.zip
+   creating: /usr/share/elasticsearch/plugins/ik/config/
+  inflating: /usr/share/elasticsearch/plugins/ik/config/quantifier.dic
+  inflating: /usr/share/elasticsearch/plugins/ik/config/preposition.dic
+  inflating: /usr/share/elasticsearch/plugins/ik/config/extra_single_word_low_freq.dic
+  inflating: /usr/share/elasticsearch/plugins/ik/config/stopword.dic
+  inflating: /usr/share/elasticsearch/plugins/ik/config/suffix.dic
+  inflating: /usr/share/elasticsearch/plugins/ik/config/extra_main.dic
+  inflating: /usr/share/elasticsearch/plugins/ik/config/IKAnalyzer.cfg.xml
+  inflating: /usr/share/elasticsearch/plugins/ik/config/main.dic
+  inflating: /usr/share/elasticsearch/plugins/ik/config/extra_stopword.dic
+  inflating: /usr/share/elasticsearch/plugins/ik/config/extra_single_word_full.dic 
+  inflating: /usr/share/elasticsearch/plugins/ik/config/surname.dic
+  inflating: /usr/share/elasticsearch/plugins/ik/config/extra_single_word.dic
+  inflating: /usr/share/elasticsearch/plugins/ik/plugin-descriptor.properties
+  inflating: /usr/share/elasticsearch/plugins/ik/plugin-security.policy
+  inflating: /usr/share/elasticsearch/plugins/ik/elasticsearch-analysis-ik-6.6.0.jar
+  inflating: /usr/share/elasticsearch/plugins/ik/httpclient-4.5.2.jar
+  inflating: /usr/share/elasticsearch/plugins/ik/httpcore-4.4.4.jar
+  inflating: /usr/share/elasticsearch/plugins/ik/commons-logging-1.2.jar
+  inflating: /usr/share/elasticsearch/plugins/ik/commons-codec-1.9.jar
+
+</code></pre>
+
+<h2 id="2-plugin-descriptorproperties">2. 修改plugin-descriptor.properties</h2>
+<ul>
+<li>https://github.com/medcl/elasticsearch-analysis-ik/issues/655</li>
+</ul>
+<pre><code>cd /usr/share/elasticsearch/plugins
+</code></pre>
+
+<ul>
+<li>可以尝试修改 ik目录中的plugin-descriptor.properties文件
+修改其中的version为 6.6.1，有两处需要修改。
+能够运行，但我不确定这样做是否会有隐患</li>
+</ul>
+<h2 id="3-es">3. 重啟ES</h2>
+<h2 id="ik_1">(二) IK測試</h2>
+<ul>
+<li>
+<p>參考: https://github.com/medcl/elasticsearch-analysis-ik/blob/master/README.md</p>
+</li>
+<li>
+<ol>
+<li>create a index</li>
+</ol>
+</li>
+</ul>
+<pre><code>curl -XPUT http://localhost:9200/test
+</code></pre>
+
+<ul>
+<li>
+<ol>
+<li>create a mapping</li>
+</ol>
+</li>
+</ul>
+<pre><code>[root@centoselk6 ELK]# curl -XPOST http://localhost:9200/test/fulltext/_mapping -H 'Content-Type:application/json' -d'
+&gt; {
+&gt;         &quot;properties&quot;: {
+&gt;             &quot;content&quot;: {
+&gt;                 &quot;type&quot;: &quot;text&quot;,
+&gt;                 &quot;analyzer&quot;: &quot;ik_max_word&quot;,
+&gt;                 &quot;search_analyzer&quot;: &quot;ik_max_word&quot;
+&gt;             }
+&gt;         }
+&gt;
+&gt; }'
+{&quot;acknowledged&quot;:true}
+</code></pre>
+
+<ul>
+<li>
+<ol>
+<li>index some docs</li>
+</ol>
+</li>
+</ul>
+<pre><code>[root@centoselk6 ELK]# curl -XPOST http://localhost:9200/test/fulltext/1 -H 'Content-Type:application/json' -d'
+&gt; {&quot;content&quot;:&quot;體育的洪荒之力姊&quot;}'
+{&quot;_index&quot;:&quot;test&quot;,&quot;_type&quot;:&quot;fulltext&quot;,&quot;_id&quot;:&quot;1&quot;,&quot;_version&quot;:1,&quot;result&quot;:&quot;created&quot;,&quot;_shards&quot;:{&quot;total&quot;:2,&quot;successful&quot;:1,&quot;failed&quot;:0},&quot;_seq_no&quot;:0,&quot;_primary_term&quot;:1}
+
+
+[root@centoselk6 ELK]# curl -XPOST http://localhost:9200/index/fulltext/3 -H 'Content-Type:application/json' -d'
+&gt; {&quot;content&quot;:&quot;中韩渔警冲突调查：韩警平均每天扣1艘中国渔船&quot;}
+&gt; '
+{&quot;_index&quot;:&quot;index&quot;,&quot;_type&quot;:&quot;fulltext&quot;,&quot;_id&quot;:&quot;3&quot;,&quot;_version&quot;:1,&quot;result&quot;:&quot;created&quot;,&quot;_shards&quot;:{&quot;total&quot;:2,&quot;successful&quot;:1,&quot;failed&quot;:0},&quot;_seq_no&quot;:0,&quot;_primary_term&quot;:1}
+
+
+[root@centoselk6 ELK]# curl -XPOST http://localhost:9200/index/fulltext/4 -H 'Content-Type:application/json' -d'
+&gt; {&quot;content&quot;:&quot;中国驻洛杉矶领事馆遭亚裔男子枪击 嫌犯已自首&quot;}
+&gt; '
+{&quot;_index&quot;:&quot;index&quot;,&quot;_type&quot;:&quot;fulltext&quot;,&quot;_id&quot;:&quot;4&quot;,&quot;_version&quot;:1,&quot;result&quot;:&quot;created&quot;,&quot;_shards&quot;:{&quot;total&quot;:2,&quot;successful&quot;:1,&quot;failed&quot;:0},&quot;_seq_no&quot;:0,&quot;_primary_term&quot;:1}
+</code></pre>
+
+<ul>
+<li>
+<ol>
+<li>query with highlighting
+看的出來洪荒之力被拆成兩個詞</li>
+</ol>
+</li>
+</ul>
+<pre><code class="json">[root@centoselk6 ELK]# curl -XPOST http://localhost:9200/test/fulltext/_search?pretty  -H 'Content-Type:application/json' -d'
+{
+    &quot;query&quot; : { &quot;match&quot; : { &quot;content&quot; : &quot;洪荒之力&quot; }},
+    &quot;highlight&quot; : {
+        &quot;pre_tags&quot; : [&quot;&lt;tag1&gt;&quot;, &quot;&lt;tag2&gt;&quot;],
+        &quot;post_tags&quot; : [&quot;&lt;/tag1&gt;&quot;, &quot;&lt;/tag2&gt;&quot;],
+        &quot;fields&quot; : {
+            &quot;content&quot; : {}
+        }
+    }
+}
+'
+{
+  &quot;took&quot; : 2,
+  &quot;timed_out&quot; : false,
+  &quot;_shards&quot; : {
+    &quot;total&quot; : 5,
+    &quot;successful&quot; : 5,
+    &quot;skipped&quot; : 0,
+    &quot;failed&quot; : 0
+  },
+  &quot;hits&quot; : {
+    &quot;total&quot; : 1,
+    &quot;max_score&quot; : 0.5753642,
+    &quot;hits&quot; : [
+      {
+        &quot;_index&quot; : &quot;test&quot;,
+        &quot;_type&quot; : &quot;fulltext&quot;,
+        &quot;_id&quot; : &quot;1&quot;,
+        &quot;_score&quot; : 0.5753642,
+        &quot;_source&quot; : {
+          &quot;content&quot; : &quot;體育的洪荒之力姊&quot;
+        },
+        &quot;highlight&quot; : {
+          &quot;content&quot; : [
+            &quot;體育的&lt;tag1&gt;洪荒&lt;/tag1&gt;&lt;tag1&gt;之力&lt;/tag1&gt;姊&quot;
+          ]
+        }
+      }
+    ]
+  }
+}
+
+</code></pre>
+
+<pre><code>[root@centoselk6 ELK]# curl -XGET 'localhost:9200/_analyze?pretty' -H 'Content-Type: application/json' -d'
+{
+  &quot;analyzer&quot; : &quot;ik_smart&quot;,
+  &quot;text&quot; : [&quot;藍瘦香菇&quot;]
+}
+'
+{
+  &quot;tokens&quot; : [
+    {
+      &quot;token&quot; : &quot;藍&quot;,
+      &quot;start_offset&quot; : 0,
+      &quot;end_offset&quot; : 1,
+      &quot;type&quot; : &quot;CN_CHAR&quot;,
+      &quot;position&quot; : 0
+    },
+    {
+      &quot;token&quot; : &quot;瘦&quot;,
+      &quot;start_offset&quot; : 1,
+      &quot;end_offset&quot; : 2,
+      &quot;type&quot; : &quot;CN_CHAR&quot;,
+      &quot;position&quot; : 1
+    },
+    {
+      &quot;token&quot; : &quot;香菇&quot;,
+      &quot;start_offset&quot; : 2,
+      &quot;end_offset&quot; : 4,
+      &quot;type&quot; : &quot;CN_WORD&quot;,
+      &quot;position&quot; : 2
+    }
+  ]
+}
+
+</code></pre>
+
+<ul>
+<li>
+<ol>
+<li>新增詞語"藍瘦香菇"</li>
+</ol>
+</li>
+</ul>
+<pre><code>[root@centoselk6 config]# pwd
+/usr/share/elasticsearch/plugins/ik/config
+
+# 建立hotword.dic在此，並在檔案內加上藍瘦香菇
+</code></pre>
+
+<ul>
+<li>
+<ol>
+<li>增加自己的辭典</li>
+</ol>
+</li>
+</ul>
+<pre><code>[root@centoselk6 config]# vim IKAnalyzer.cfg.xml
+</code></pre>
+
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE properties SYSTEM &quot;http://java.sun.com/dtd/properties.dtd&quot;&gt;
+&lt;properties&gt;
+        &lt;comment&gt;IK Analyzer 扩展配置&lt;/comment&gt;
+        &lt;!--用户可以在这里配置自己的扩展字典 --&gt;
+        &lt;entry key=&quot;ext_dict&quot;&gt;hotword.dic&lt;/entry&gt;
+         &lt;!--用户可以在这里配置自己的扩展停止词字典--&gt;
+        &lt;entry key=&quot;ext_stopwords&quot;&gt;&lt;/entry&gt;
+        &lt;!--用户可以在这里配置远程扩展字典 --&gt;
+        &lt;!-- &lt;entry key=&quot;remote_ext_dict&quot;&gt;words_location&lt;/entry&gt; --&gt;
+        &lt;!--用户可以在这里配置远程扩展停止词字典--&gt;
+        &lt;!-- &lt;entry key=&quot;remote_ext_stopwords&quot;&gt;words_location&lt;/entry&gt; --&gt;
+&lt;/properties&gt;
+</code></pre>
+
+<ul>
+<li>
+<ol>
+<li>再次查看"藍瘦香菇"是否有被分詞到</li>
+</ol>
+</li>
+</ul>
+<pre><code class="json">[root@centoselk6 ELK]# curl -XGET 'localhost:9200/_analyze?pretty' -H 'Content-Type: application/json' -d'
+{
+  &quot;analyzer&quot; : &quot;ik_smart&quot;,
+  &quot;text&quot; : [&quot;藍瘦香菇&quot;]
+}
+'
+{
+  &quot;tokens&quot; : [
+    {
+      &quot;token&quot; : &quot;藍瘦香菇&quot;,
+      &quot;start_offset&quot; : 0,
+      &quot;end_offset&quot; : 4,
+      &quot;type&quot; : &quot;CN_WORD&quot;,
+      &quot;position&quot; : 0
+    }
+  ]
+}
+
+</code></pre>
+
+<pre><code class="json">GET /_analyze?pretty
+{
+  &quot;analyzer&quot; : &quot;ik_smart&quot;,
+  &quot;text&quot; : [&quot;藍瘦香菇&quot;]
+}
+</code></pre>
+
+<h2 id="3">3. 辭典在線上</h2>
+<h3 id="ik_2">热更新 IK 分词使用方法</h3>
+<p>目前该插件支持热更新 IK 分词，通过上文在 IK 配置文件中提到的如下配置</p>
+<pre><code>&lt;!--用户可以在这里配置远程扩展字典 --&gt;
+&lt;entry key="remote_ext_dict"&gt;location&lt;/entry&gt;
+&lt;!--用户可以在这里配置远程扩展停止词字典--&gt;
+&lt;entry key="remote_ext_stopwords"&gt;location&lt;/entry&gt;
+</code></pre>
+<p>其中  <code>location</code>  是指一个 url，比如  <code>http://yoursite.com/getCustomDict</code>，该请求只需满足以下两点即可完成分词热更新。</p>
+<ol>
+<li>
+<p>该 http 请求需要返回两个头部(header)，一个是  <code>Last-Modified</code>，一个是  <code>ETag</code>，这两者都是字符串类型，只要有一个发生变化，该插件就会去抓取新的分词进而更新词库。</p>
+</li>
+<li>
+<p>该 http 请求返回的内容格式是一行一个分词，换行符用  <code>\n</code>  即可。</p>
+</li>
+</ol>
+<p>满足上面两点要求就可以实现热更新分词了，不需要重启 ES 实例。</p>
+<p>可以将需自动更新的热词放在一个 UTF-8 编码的 .txt 文件里，放在 nginx 或其他简易 http server 下，当 .txt 文件修改时，http server 会在客户端请求该文件时自动返回相应的 Last-Modified 和 ETag。可以另外做一个工具来从业务系统提取相关词汇，并更新这个 .txt 文件。</p>
+<p>have fun.</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>var base_url = '../../..';</script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/require.js"></script>
+        <script src="../../../search/search.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&larr;</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&rarr;</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    </body>
+</html>

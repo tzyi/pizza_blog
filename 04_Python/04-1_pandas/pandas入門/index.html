@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Pizza">
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>Pandas入門(1) - Pizza's</title>
+        <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../../css/highlight.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="../../..">Pizza's</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Computer Science <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+  <li class="dropdown-submenu">
+    <a href="#">SQL</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../02_CS/02-1_SQL/MySQL安裝/">MySQL安裝</a>
+</li>
+    </ul>
+  </li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Docker</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../02_CS/02-2_Docker/docker環境建置及使用/">Docker建置</a>
+</li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">ELK <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Article</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../03_ELK/03-1_artical/安裝IK斷詞器/">IK安裝及使用</a>
+</li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Python <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Pandas</a>
+    <ul class="dropdown-menu">
+            
+<li class="active">
+    <a href="./">Pandas入門(1)</a>
+</li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li >
+                        <a rel="next" href="../../../03_ELK/03-1_artical/安裝IK斷詞器/">
+                            <i class="fa fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li class="disabled">
+                        <a rel="prev" >
+                            Next <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#pandas">Pandas入門</a></li>
+            <li><a href="#1">1. 介紹</a></li>
+            <li><a href="#2-dataframe">2. 建立DataFrame</a></li>
+            <li><a href="#3-dataframe">3. 取得DataFrame</a></li>
+            <li><a href="#4-dataframe">4. 修改及排序DataFrame</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="pandas">Pandas入門</h1>
+<p>大綱:</p>
+<blockquote>
+<ol>
+<li>介紹</li>
+<li>建立DataFrame</li>
+<li>取得DataFrame</li>
+<li>修改及排序DataFrame</li>
+<li>刪除DataFrame</li>
+<li>匯入資料</li>
+</ol>
+</blockquote>
+<h2 id="1">1. 介紹</h2>
+<p>要進行繁瑣的搜尋及擷取，Pandas不但自動取得網頁中表格資料，還可以對資料進行修改、排序等處理，也可繪圖。
+Pandas主要的資料型態有2種:第一種，Series是一維資料結構，其用法和串列類似；DataFrame為二維資料結構，表格即為DataFrame的典型結構。</p>
+<h2 id="2-dataframe">2. 建立DataFrame</h2>
+<h3 id="2-1-dataframe">2-1 建立DataFrame(未指定行列標題)</h3>
+<pre><code class="python">
+import pandas as pd
+
+df = pd.DataFrame({&quot;pizza&quot;:[10,20,30,40,50],&quot;peter&quot;:[15,25,35,45,55],&quot;dudu&quot;:[60,70,80,90,100],&quot;bush&quot;:[55,65,75,85,95]})
+
+print(df)
+</code></pre>
+
+<p>執行結果</p>
+<pre><code>[cabie@scw-eb7019 python]$ python3 001_pandas_1.py
+   pizza  peter  dudu  bush
+0     10     15    60    55
+1     20     25    70    65
+2     30     35    80    75
+3     40     45    90    85
+4     50     55   100    95
+
+</code></pre>
+
+<h3 id="2-2-dataframe">2-2 建立DataFrame(指定行列標題)</h3>
+<pre><code class="python">
+import pandas as pd
+
+datas = [[10,20,30,40,50],[15,25,35,45,55],[60,70,80,90,100],[55,65,75,85,95]]
+indexs = [&quot;pizza&quot;,&quot;peter&quot;,&quot;dudu&quot;,&quot;bush&quot;]
+columns = [&quot;chinese&quot;,&quot;math&quot;,&quot;english&quot;,&quot;physics&quot;,&quot;society&quot;]
+
+dg = pd.DataFrame(datas,columns=columns,index=indexs)
+print(dg)
+</code></pre>
+
+<p>執行結果</p>
+<pre><code>[cabie@scw-eb7019 python]$ python3 001_pandas_1.py
+       chinese  math  english  physics  society
+pizza       10    20       30       40       50
+peter       15    25       35       45       55
+dudu        60    70       80       90      100
+bush        55    65       75       85       95
+</code></pre>
+
+<h3 id="2-3">2-3 修改行、列標題</h3>
+<pre><code class="python">
+import pandas as pd
+
+datas = [[10,20,30,40,50],[15,25,35,45,55],[60,70,80,90,100],[55,65,75,85,95]]
+indexs = [&quot;pizza&quot;,&quot;peter&quot;,&quot;dudu&quot;,&quot;bush&quot;]
+columns = [&quot;chinese&quot;,&quot;math&quot;,&quot;english&quot;,&quot;physics&quot;,&quot;society&quot;]
+
+dh = pd.DataFrame(datas,columns=columns,index=indexs)
+indexs[0]=&quot;carter&quot;
+dh.index = indexs
+columns[3]=&quot;history&quot;
+dh.columns = columns
+print(dh)
+
+</code></pre>
+
+<p>執行結果</p>
+<pre><code>[cabie@scw-eb7019 python]$ python3 001_pandas_1.py
+        chinese  math  english  history  society
+carter       10    20       30       40       50
+peter        15    25       35       45       55
+dudu         60    70       80       90      100
+bush         55    65       75       85       95
+
+</code></pre>
+
+<h2 id="3-dataframe">3. 取得DataFrame</h2>
+<h3 id="3-1">3-1 取得行資料</h3>
+<pre><code class="python">
+import pandas as pd
+
+# ex3
+
+datas = [[10,20,30,40,50],[15,25,35,45,55],[60,70,80,90,100],[55,65,75,85,95]]
+indexs = [&quot;pizza&quot;,&quot;peter&quot;,&quot;dudu&quot;,&quot;bush&quot;]
+columns = [&quot;chinese&quot;,&quot;math&quot;,&quot;english&quot;,&quot;physics&quot;,&quot;society&quot;]
+
+dh = pd.DataFrame(datas,columns=columns,index=indexs)
+indexs[0]=&quot;carter&quot;
+dh.index = indexs
+columns[3]=&quot;history&quot;
+dh.columns = columns
+#print(dh)
+print(dh[&quot;math&quot;])
+print(&quot;\n&quot;)
+print(dh[[&quot;math&quot;,&quot;chinese&quot;,&quot;english&quot;]])  # 注意: 兩個中括號
+print(&quot;\n&quot;)
+print(dh[dh.math &gt;= 60])
+</code></pre>
+
+<p>執行結果</p>
+<pre><code>[cabie@scw-eb7019 python]$ python3 001_pandas_1.py
+carter    20
+peter     25
+dudu      70
+bush      65
+Name: math, dtype: int64
+
+        math  chinese  english
+carter    20       10       30
+peter     25       15       35
+dudu      70       60       80
+bush      65       55       75
+
+      chinese  math  english  history  society
+dudu       60    70       80       90      100
+bush       55    65       75       85       95
+</code></pre>
+
+<h3 id="3-2-dfvalues">3-2 取得資料 df.values</h3>
+<pre><code class="python">
+import pandas as pd
+
+datas = [[10,20,30,40,50],[15,25,35,45,55],[60,70,80,90,100],[55,65,75,85,95]]
+indexs = [&quot;pizza&quot;,&quot;peter&quot;,&quot;dudu&quot;,&quot;bush&quot;]
+columns = [&quot;chinese&quot;,&quot;math&quot;,&quot;english&quot;,&quot;physics&quot;,&quot;society&quot;]
+
+dh = pd.DataFrame(datas,columns=columns,index=indexs)
+indexs[0]=&quot;carter&quot;
+dh.index = indexs
+columns[3]=&quot;history&quot;
+dh.columns = columns
+
+print(dh.values)
+print(&quot;\n&quot;)
+print(dh.values[0])   # 取得第一位同學成績
+print(&quot;\n&quot;)
+print(dh.values[0][1])  #取得第一位同學的第二個科目(math)成績
+
+</code></pre>
+
+<p>執行結果</p>
+<pre><code>[cabie@scw-eb7019 python]$ python3 001_pandas_1.py
+[[ 10  20  30  40  50]
+ [ 15  25  35  45  55]
+ [ 60  70  80  90 100]
+ [ 55  65  75  85  95]]
+
+[10 20 30 40 50]
+
+20
+</code></pre>
+
+<h3 id="3-3">3-3 以行列標題取得資料</h3>
+<pre><code class="python">
+import pandas as pd
+
+datas = [[10,20,30,40,50],[15,25,35,45,55],[60,70,80,90,100],[55,65,75,85,95]]
+indexs = [&quot;pizza&quot;,&quot;peter&quot;,&quot;dudu&quot;,&quot;bush&quot;]
+columns = [&quot;chinese&quot;,&quot;math&quot;,&quot;english&quot;,&quot;physics&quot;,&quot;society&quot;]
+
+dh = pd.DataFrame(datas,columns=columns,index=indexs)
+
+
+print(dh.loc[&quot;pizza&quot;, :])   # 列出pizza所有成績
+print(&quot;\n&quot;)
+print(dh.loc[&quot;pizza&quot;][&quot;math&quot;])  # 列出pizza數學成績
+print(&quot;\n&quot;)
+print(dh.loc[(&quot;pizza&quot;,&quot;dudu&quot;), :])  # 列出pizza、dudu所有成績
+print(&quot;\n&quot;)
+print(dh.loc[(&quot;pizza&quot;,&quot;dudu&quot;),(&quot;society&quot;,&quot;english&quot;)]) # 列出pizza、dudu的&quot;society&quot;,&quot;english&quot;成績
+print(&quot;\n&quot;)
+print(dh.loc[&quot;peter&quot;:&quot;bush&quot;,&quot;math&quot;:&quot;physics&quot;]) # 列出peter到bush的math到physics成績
+print(&quot;\n&quot;)
+print(dh.loc[:&quot;dudu&quot;,&quot;math&quot;:&quot;physics&quot;])  # 列出從頭到bush的math到physics成績
+print(&quot;\n&quot;)
+
+</code></pre>
+
+<p>執行結果</p>
+<pre><code>[cabie@scw-eb7019 python]$ python3 001_pandas_1.py
+chinese    10
+math       20
+english    30
+physics    40
+society    50
+Name: pizza, dtype: int64
+
+
+20
+
+
+       chinese  math  english  physics  society
+pizza       10    20       30       40       50
+dudu        60    70       80       90      100
+
+
+       society  english
+pizza       50       30
+dudu       100       80
+
+
+       math  english  physics
+peter    25       35       45
+dudu     70       80       90
+bush     65       75       85
+
+
+       math  english  physics
+pizza    20       30       40
+peter    25       35       45
+dudu     70       80       90
+</code></pre>
+
+<h3 id="3-4-dfiloc">3-4 以行列位置取得資料 df.iloc</h3>
+<ul>
+<li>df.iloc[列位置，行位置]</li>
+</ul>
+<pre><code class="python">
+import pandas as pd
+
+datas = [[10,20,30,40,50],[15,25,35,45,55],[60,70,80,90,100],[55,65,75,85,95]]
+indexs = [&quot;pizza&quot;,&quot;peter&quot;,&quot;dudu&quot;,&quot;bush&quot;]
+columns = [&quot;chinese&quot;,&quot;math&quot;,&quot;english&quot;,&quot;physics&quot;,&quot;society&quot;]
+
+dh = pd.DataFrame(datas,columns=columns,index=indexs)
+
+
+print(dh.iloc[1, :])  #取得第2位學生的所有成績 
+print(&quot;\n&quot;)
+print(dh.iloc[0][2])  #取得第一位學生的第三個成績
+</code></pre>
+
+<p>執行結果</p>
+<pre><code>[cabie@scw-eb7019 python]$ python3 001_pandas_1.py
+chinese    15
+math       25
+english    35
+physics    45
+society    55
+Name: peter, dtype: int64
+
+
+30
+</code></pre>
+
+<h3 id="3-5-dfix">3-5 以行列的標題或位置取得資料 df.ix</h3>
+<ul>
+<li>以下寫法都可以</li>
+</ul>
+<pre><code class="python">dh.ix[&quot;pizza&quot;][0]
+dh.ix[0][&quot;chinese&quot;]
+dh.ix[&quot;pizza&quot;][&quot;chinese&quot;]
+dh.ix[0][0]
+</code></pre>
+
+<h3 id="3-6">3-6 取得最前或最後資料</h3>
+<ul>
+<li>後面數字沒加，預設是5個</li>
+</ul>
+<pre><code class="python">
+df.head(2)  
+df.tail(2)
+</code></pre>
+
+<h2 id="4-dataframe">4. 修改及排序DataFrame</h2>
+<h3 id="4-1">4-1 修改資料</h3>
+<pre><code class="python">
+df.ix[&quot;pizza&quot;][&quot;math&quot;] = 91  #將pizza數學成績改為91ㄈ分
+df.ix[&quot;pizza&quot;, :] = 80 #將pizza成績全部改為80分
+</code></pre>
+
+<h3 id="4-2">4-2 排序資料</h3>
+<ul>
+<li>資料變數 = df.sort_values(by=行標題 , ascending=False)
+True:遞增(預設)，False:遞減</li>
+</ul>
+<pre><code class="python">
+import pandas as pd
+
+datas = [[10,20,30,40,50],[15,25,35,45,55],[60,70,80,90,100],[55,65,75,85,95]]
+indexs = [&quot;pizza&quot;,&quot;peter&quot;,&quot;dudu&quot;,&quot;bush&quot;]
+columns = [&quot;chinese&quot;,&quot;math&quot;,&quot;english&quot;,&quot;physics&quot;,&quot;society&quot;]
+
+dh = pd.DataFrame(datas,columns=columns,index=indexs)
+
+dh1=dh.sort_values(by=&quot;math&quot;)
+print(dh1)
+dh2=dh.sort_values(by=&quot;math&quot;,ascending=False)
+print(dh2)
+
+</code></pre>
+
+<p>執行結果</p>
+<pre><code>[cabie@scw-eb7019 python]$ python3 001_pandas_1.py
+       chinese  math  english  physics  society
+pizza       10    20       30       40       50
+peter       15    25       35       45       55
+bush        55    65       75       85       95
+dudu        60    70       80       90      100
+
+       chinese  math  english  physics  society
+dudu        60    70       80       90      100
+bush        55    65       75       85       95
+peter       15    25       35       45       55
+pizza       10    20       30       40       50
+</code></pre>
+
+<ul>
+<li>資料變數 = df.sort_index(axis=行列數值 , ascending=False)
+行列數值:0代表依照列標題排序，1代表依照行標題排序</li>
+</ul>
+<pre><code class="python">df2 = df.sort_index(axis=0)
+</code></pre>
+
+<p>根據實測結果，依照行列標題排序對中文效果不佳。</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>var base_url = '../../..';</script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/require.js"></script>
+        <script src="../../../search/search.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&larr;</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&rarr;</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    </body>
+</html>
